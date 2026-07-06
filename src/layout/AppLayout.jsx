@@ -1,43 +1,26 @@
-import { Outlet, Link } from "react-router-dom";
-import { logout } from "../services/auth";
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+
 
 function AppLayout() {
-
-  function handleLogout() {
-    logout();
-    window.location.href = "/";
-  }
-
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100">
 
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-gray-900 text-white p-5">
-        <h2 className="text-xl font-bold mb-6">
-          Joven Safaris Admin
-        </h2>
+      {/* Sidebar */}
+      <Sidebar />
 
-        <nav className="space-y-3">
-          <Link className="block hover:text-blue-400" to="/dashboard">
-            Bookings
-          </Link>
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 overflow-hidden">
 
-          <Link className="block hover:text-blue-400" to="/bookings">
-            Manage Bookings
-          </Link>
-        </nav>
+        {/* Top Navbar */}
+        <Navbar />
 
-        <button
-          onClick={handleLogout}
-          className="mt-10 bg-red-500 px-3 py-2 rounded w-full"
-        >
-          Logout
-        </button>
-      </aside>
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto p-6">
+          <Outlet />
+        </main>
 
-      {/* MAIN AREA */}
-      <div className="flex-1 p-6">
-        <Outlet />
       </div>
 
     </div>

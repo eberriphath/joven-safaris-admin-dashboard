@@ -3,92 +3,118 @@ import api from "../api/axios";
 
 function Bookings() {
   const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  const fetchBookings = () => {
-    setLoading(true);
-
+  useEffect(() => {
     api.get("/admin/bookings")
       .then((res) => {
         setBookings(res.data);
       })
       .catch((err) => {
-        console.log("Error loading bookings:", err.response);
-      })
-      .finally(() => {
-        setLoading(false);
+        console.log(err.response?.data || err.message);
       });
-  };
-
-  useEffect(() => {
-    fetchBookings();
   }, []);
 
-  const updateStatus = (id, status) => {
+  function updateStatus(id, status) {
     api.put(`/admin/bookings/${id}/status`, { status })
       .then(() => {
-        fetchBookings();
+        setBookings((prev) =>
+          prev.map((b) =>
+            b.id === id ? { ...b, status } : b
+          )
+        );
       })
       .catch((err) => {
-        console.log("Status update failed:", err.response);
+        console.log(err.response?.data || err.message);
       });
-  };
-
-  if (loading) {
-    return <p className="p-4">Loading bookings...</p>;
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Bookings</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
 
-      <table className="w-full border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2 border">Name</th>
-            <th className="p-2 border">Email</th>
-            <th className="p-2 border">Destination</th>
-            <th className="p-2 border">People</th>
-            <th className="p-2 border">Status</th>
-            <th className="p-2 border">Actions</th>
-          </tr>
-        </thead>
+      <h1 className="text-3xl font-bold mb-6">
+        Bookings
+      </h1>
 
-        <tbody>
-          {bookings.map((b) => (
-            <tr key={b.id} className="text-center">
-              <td className="p-2 border">{b.full_name}</td>
-              <td className="p-2 border">{b.email}</td>
-              <td className="p-2 border">{b.destination}</td>
-              <td className="p-2 border">{b.number_of_people}</td>
-              <td className="p-2 border">{b.status}</td>
+      <div className="bg-white shadow-md rounded-lg overflow-hidden">
 
-              <td className="p-2 border space-x-2">
-                <button
-                  className="bg-green-500 text-white px-2 py-1"
-                  onClick={() => updateStatus(b.id, "confirmed")}
-                >
-                  Confirm
-                </button>
+        <table className="min-w-full text-sm text-left">
 
-                <button
-                  className="bg-yellow-500 text-white px-2 py-1"
-                  onClick={() => updateStatus(b.id, "pending")}
-                >
-                  Pending
-                </button>
-
-                <button
-                  className="bg-red-500 text-white px-2 py-1"
-                  onClick={() => updateStatus(b.id, "cancelled")}
-                >
-                  Cancel
-                </button>
-              </td>
+          <thead className="bg-gray-200 text-gray-700 uppercase text-xs">
+            <tr>
+              <th className="px-4 py-3">ID</th>
+              <th className="px-4 py-3">Name</th>
+              <th className="px-4 py-3">Email</th>
+              <th className="px-4 py-3">Destination</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">People</th>
+              <th className="px-4 py-3">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200">
+
+            {bookings.map((b) => (
+              <tr key={b.id} className="hover:bg-gray-50">
+
+                <td className="px-4 py-3">{b.id}</td>
+                <td className="px-4 py-3 font-medium">{b.full_name}</td>
+                <td className="px-4 py-3">{b.email}</td>
+                <td className="px-4 py-3">{b.destination}</td>
+
+                <td className="px-4 py-3">
+                  <span
+                    className={`px-2 py-1 rounded text-xs font-semibold ${
+                      b.status === "confirmed"
+                        ? "bg-green-100 text-green-700"
+                        : b.status === "cancelled"
+                        ? "bg-red-100 text-red-700"
+                        : b.status === "completed"
+                        ? "bg-blue-100 text-blue-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }`}
+                  >
+                    {b.status}
+                  </span>
+                </td>
+
+                <td className="px-4 py-3">
+                  {b.number_of_people}
+                </td>
+
+                <td className="px-4 py-3 space-x-2">
+
+                  <button
+                    onClick={() => updateStatus(b.id, "pending")}
+                    className="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600"
+                  >
+                    Pending
+                  </button>
+
+                  <button
+                    onClick={() => updateStatus(b.id, "confirmed")}
+                    className="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600"
+                  >
+                    Confirm
+                  </button>
+
+                  <button
+                    onClick={() => updateStatus(b.id, "cancelled")}
+                    className="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600"
+                  >
+                    Cancel
+                  </button>
+
+                </td>
+
+              </tr>
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
     </div>
   );
 }

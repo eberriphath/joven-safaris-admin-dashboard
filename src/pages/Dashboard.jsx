@@ -1,123 +1,171 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { logout } from "../services/auth";
 
 function Dashboard() {
-  const [bookings, setBookings] = useState([]);
+
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    api.get("/admin/bookings")
+
+    api.get("/admin/dashboard")
       .then((res) => {
-        setBookings(res.data);
+        setStats(res.data);
       })
       .catch((err) => {
-        console.log(err.response?.data || err.message);
+        console.log(
+          err.response?.data || err.message
+        );
       });
+
   }, []);
 
-  function updateStatus(id, status) {
-    api.put(`/admin/bookings/${id}/status`, { status })
-      .then(() => {
-        setBookings((prev) =>
-          prev.map((b) =>
-            b.id === id ? { ...b, status } : b
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err.response?.data || err.message);
-      });
+
+  if (!stats) {
+    return (
+      <div className="text-gray-600">
+        Loading dashboard...
+      </div>
+    );
   }
 
-  function handleLogout() {
-    logout();
-    window.location.href = "/";
-  }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div>
 
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
-          Admin Dashboard
-        </h1>
+      <h1 className="text-3xl font-bold mb-6">
+        Dashboard Overview
+      </h1>
 
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-        >
-          Logout
-        </button>
+
+      {/* STAT CARDS */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2 className="text-gray-500">
+            Total Bookings
+          </h2>
+
+          <p className="text-3xl font-bold mt-2">
+            {stats.total_bookings}
+          </p>
+        </div>
+
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2 className="text-gray-500">
+            Pending
+          </h2>
+
+          <p className="text-3xl font-bold mt-2 text-yellow-500">
+            {stats.pending}
+          </p>
+        </div>
+
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2 className="text-gray-500">
+            Confirmed
+          </h2>
+
+          <p className="text-3xl font-bold mt-2 text-green-600">
+            {stats.confirmed}
+          </p>
+        </div>
+
+
+        <div className="bg-white p-6 rounded-xl shadow">
+          <h2 className="text-gray-500">
+            Cancelled
+          </h2>
+
+          <p className="text-3xl font-bold mt-2 text-red-500">
+            {stats.cancelled}
+          </p>
+        </div>
+
       </div>
 
-      {/* TABLE CARD */}
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <table className="min-w-full text-sm text-left">
 
-          <thead className="bg-gray-200 text-gray-700 uppercase text-xs">
-            <tr>
-              <th className="px-4 py-3">ID</th>
-              <th className="px-4 py-3">Name</th>
-              <th className="px-4 py-3">Email</th>
-              <th className="px-4 py-3">Destination</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">People</th>
-              <th className="px-4 py-3">Actions</th>
+      {/* RECENT BOOKINGS */}
+      <div className="mt-8 bg-white rounded-xl shadow p-6">
+
+        <h2 className="text-xl font-bold mb-4">
+          Recent Bookings
+        </h2>
+
+
+        <table className="w-full">
+
+          <thead>
+            <tr className="border-b">
+
+              <th className="text-left p-3">
+                Name
+              </th>
+
+              <th className="text-left p-3">
+                Destination
+              </th>
+
+              <th className="text-left p-3">
+                Status
+              </th>
+
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-200">
 
-            {bookings.map((b) => (
-              <tr key={b.id} className="hover:bg-gray-50">
+          <tbody>
 
-                <td className="px-4 py-3">{b.id}</td>
-                <td className="px-4 py-3 font-medium">{b.full_name}</td>
-                <td className="px-4 py-3">{b.email}</td>
-                <td className="px-4 py-3">{b.destination}</td>
+            {stats.recent_bookings.map((booking) => (
 
-                {/* STATUS BADGE */}
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 rounded text-xs font-semibold ${
-                      b.status === "confirmed"
-                        ? "bg-green-100 text-green-700"
-                        : b.status === "cancelled"
-                        ? "bg-red-100 text-red-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
-                  >
-                    {b.status}
-                  </span>
+              <tr
+                key={booking.id}
+                className="border-b"
+              >
+
+                <td className="p-3">
+                  {booking.full_name}
                 </td>
 
-                <td className="px-4 py-3">{b.number_of_people}</td>
 
-                {/* ACTIONS */}
-                <td className="px-4 py-3 space-x-2">
-                  <button
-                    onClick={() => updateStatus(b.id, "confirmed")}
-                    className="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600"
-                  >
-                    Confirm
-                  </button>
+                <td className="p-3">
+                  {booking.destination}
+                </td>
 
-                  <button
-                    onClick={() => updateStatus(b.id, "cancelled")}
-                    className="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600"
+
+                <td className="p-3">
+
+                  <span
+                    className={`
+                      px-3 py-1 rounded-full text-sm
+                      ${
+                        booking.status === "confirmed"
+                        ? "bg-green-100 text-green-700"
+                        :
+                        booking.status === "cancelled"
+                        ? "bg-red-100 text-red-700"
+                        :
+                        "bg-yellow-100 text-yellow-700"
+                      }
+                    `}
                   >
-                    Cancel
-                  </button>
+                    {booking.status}
+                  </span>
+
                 </td>
 
               </tr>
+
             ))}
 
           </tbody>
 
         </table>
+
       </div>
+
+
     </div>
   );
 }
