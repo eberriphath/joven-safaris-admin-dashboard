@@ -4,6 +4,7 @@ import api from "../api/axios";
 function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [search, setSearch] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
     api.get("/admin/bookings")
@@ -109,6 +110,12 @@ function Bookings() {
                 <td className="px-4 py-3 space-x-2">
 
                   <button
+                    onClick={() => setSelectedBooking(b)}
+                    className="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600">
+                        View
+                  </button>
+
+                  <button
                     onClick={() => updateStatus(b.id, "pending")}
                     className="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600"
                   >
@@ -139,7 +146,77 @@ function Bookings() {
         </table>
 
       </div>
+{selectedBooking && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
 
+    <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6">
+
+      <div className="flex justify-between items-center mb-6">
+
+        <h2 className="text-2xl font-bold">
+          Booking Details
+        </h2>
+
+        <button
+          onClick={() => setSelectedBooking(null)}
+          className="text-gray-500 hover:text-black text-xl"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <div className="grid grid-cols-2 gap-6">
+
+        <div>
+          <p className="text-gray-500">Full Name</p>
+          <p className="font-semibold">
+            {selectedBooking.full_name}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Email</p>
+          <p className="font-semibold">
+            {selectedBooking.email}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Destination</p>
+          <p className="font-semibold">
+            {selectedBooking.destination}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">People</p>
+          <p className="font-semibold">
+            {selectedBooking.number_of_people}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Status</p>
+          <p className="font-semibold">
+            {selectedBooking.status}
+          </p>
+        </div>
+
+        <div>
+          <p className="text-gray-500">Created</p>
+          <p className="font-semibold">
+            {selectedBooking.created_at}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
     </div>
   );
 }
