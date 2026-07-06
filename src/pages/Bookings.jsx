@@ -3,6 +3,7 @@ import api from "../api/axios";
 
 function Bookings() {
   const [bookings, setBookings] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     api.get("/admin/bookings")
@@ -28,12 +29,36 @@ function Bookings() {
       });
   }
 
+  const filteredBookings = bookings.filter((booking) => {
+
+  const term = search.toLowerCase();
+
+  return (
+    booking.full_name.toLowerCase().includes(term) ||
+    booking.email.toLowerCase().includes(term) ||
+    booking.destination.toLowerCase().includes(term)
+  );
+
+});
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
 
       <h1 className="text-3xl font-bold mb-6">
         Bookings
       </h1>
+
+      <div className="mb-6">
+
+        <input
+          type="text"
+          placeholder="Search by name, email or destination..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full md:w-96 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+       </div>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
 
@@ -53,7 +78,7 @@ function Bookings() {
 
           <tbody className="divide-y divide-gray-200">
 
-            {bookings.map((b) => (
+            {filteredBookings.map((b) => (
               <tr key={b.id} className="hover:bg-gray-50">
 
                 <td className="px-4 py-3">{b.id}</td>
