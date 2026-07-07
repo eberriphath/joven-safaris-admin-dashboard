@@ -65,6 +65,19 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
+          to="/packages"
+          className={({ isActive }) =>
+            `block rounded-lg px-4 py-3 ${
+              isActive
+                ? "bg-blue-600"
+                : "hover:bg-slate-800"
+            }`
+          }
+        >
+          Packages
+        </NavLink>
+
+        <NavLink
           to="/settings"
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 ${
