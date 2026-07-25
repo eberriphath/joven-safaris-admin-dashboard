@@ -37,7 +37,55 @@ function Bookings() {
   }
 
 
+function deleteBooking(id){
 
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this booking?"
+  );
+
+
+  if(!confirmDelete){
+    return;
+  }
+
+
+
+  api.delete(`/admin/bookings/${id}`)
+
+  .then(()=>{
+
+    setBookings((previous)=>
+
+      previous.filter(
+        (booking)=>booking.id !== id
+      )
+
+    );
+
+
+    if(
+      selectedBooking &&
+      selectedBooking.id === id
+    ){
+
+      setSelectedBooking(null);
+
+    }
+
+
+  })
+
+
+  .catch((err)=>{
+
+    console.log(
+      err.response?.data || err.message
+    );
+
+  });
+
+
+}
 
 
   function updateStatus(id,status){
@@ -407,6 +455,29 @@ text-xs
 >
 
 Cancel
+
+</button>
+
+
+
+<button
+
+onClick={()=>deleteBooking(
+booking.id
+)}
+
+className="
+bg-gray-700
+text-white
+px-2
+py-1
+rounded
+text-xs
+"
+
+>
+
+Delete
 
 </button>
 
