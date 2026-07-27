@@ -59,67 +59,172 @@ function Login() {
   };
 
   return (
+
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+
 
       <form
         onSubmit={handleLogin}
         className="bg-white p-8 rounded-xl shadow-md w-full max-w-md"
       >
 
+
         <h1 className="text-2xl font-bold mb-6 text-center">
           Admin Login
         </h1>
 
+
+
         {error && (
+
           <p className="text-red-500 text-sm mb-4 text-center">
             {error}
           </p>
+
         )}
 
+
+
+
         <input
+
           type="email"
+
           placeholder="Email"
+
           className="w-full p-3 border rounded mb-4"
+
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+
+          onChange={(e)=>setEmail(e.target.value)}
+
         />
+
+
+
+
 
         <div className="relative mb-4">
 
+
           <input
+
             type={showPassword ? "text" : "password"}
+
             placeholder="Password"
+
             className="w-full p-3 pr-12 border rounded"
+
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+
+            onChange={(e)=>setPassword(e.target.value)}
+
           />
 
+
+
           <button
+
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+
+            onClick={()=>setShowPassword(!showPassword)}
+
+            className="
+            absolute
+            right-3
+            top-1/2
+            -translate-y-1/2
+            text-gray-500
+            hover:text-gray-700
+            "
+
           >
-            {showPassword ? (
-              <EyeOff size={20} />
-            ) : (
-              <Eye size={20} />
-            )}
+
+            {
+              showPassword
+
+              ? <EyeOff size={20}/>
+
+              : <Eye size={20}/>
+
+            }
+
+
           </button>
+
 
         </div>
 
+
+
+
+
         <button
+
           type="submit"
+
           disabled={loading}
-          className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700 disabled:opacity-50"
+
+          className="
+          w-full
+          bg-blue-600
+          text-white
+          p-3
+          rounded
+          hover:bg-blue-700
+          disabled:opacity-50
+          "
+
         >
-          {loading ? "Logging in..." : "Login"}
+
+          {
+            loading
+            ? "Logging in..."
+            : "Login"
+          }
+
+
         </button>
+
+
+
+
+
+        <div className="text-center mt-4">
+
+
+          <button
+
+            type="button"
+
+            onClick={()=>navigate("/forgot-password")}
+
+            className="
+            text-blue-600
+            hover:underline
+            text-sm
+            "
+
+          >
+
+            Forgot Password?
+
+          </button>
+
+
+        </div>
+
+
+
 
       </form>
 
+
     </div>
+
   );
+
 }
+
 
 export default Login;

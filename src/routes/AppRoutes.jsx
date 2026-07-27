@@ -9,6 +9,7 @@ import Reviews from "../pages/Reviews";
 import Settings from "../pages/Settings";
 import Packages from "../pages/Packages";
 import ProtectedRoute from "./ProtectedRoute";
+import ForgotPassword from "../pages/ForgotPassword";
 
 
 function AppRoutes() {
@@ -37,6 +38,8 @@ function AppRoutes() {
           <Route path="/settings" element={<Settings />} />
 
           <Route path="/packages" element={<Packages />} />
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
         </Route>
 
