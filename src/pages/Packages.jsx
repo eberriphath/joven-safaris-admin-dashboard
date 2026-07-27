@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 
+
 function Packages() {
 
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -69,23 +73,78 @@ function Packages() {
       active:true
     });
 
+    setSelectedImage(null);
+   
     setEditingId(null);
 
   }
 
 
+async function uploadImage() {
+
+  if (!selectedImage) return null;
+
+  try {
+
+    setUploading(true);
+
+    const imageData = new FormData();
+    imageData.append("image", selectedImage);
+
+    const token = localStorage.getItem("adminToken");
+
+    const res = await api.post(
+      "/admin/upload-image",
+      imageData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return res.data.image_url;
+
+  } catch (err) {
+
+    console.log(err.response?.data || err.message);
+
+    alert("Image upload failed.");
+
+    return null;
+
+  } finally {
+
+    setUploading(false);
+
+  }
+
+}
 
 
-
-  function savePackage(e){
+  async function savePackage(e){
 
     e.preventDefault();
 
 
-    const data = {
-      ...formData,
-      price:Number(formData.price)
-    };
+    let imageUrl = formData.image_url;
+
+if (selectedImage) {
+
+  imageUrl = await uploadImage();
+
+  if (!imageUrl) {
+    return;
+  }
+
+}
+
+const data = {
+  ...formData,
+  image_url: imageUrl,
+  price: Number(formData.price)
+};
 
 
     if(editingId){
@@ -328,19 +387,61 @@ function Packages() {
 
 
 
-          <input
+<div className="space-y-4">
 
-            name="image_url"
+  <div>
 
-            placeholder="Image URL"
+    <label className="block font-medium mb-2">
+      Upload Image
+    </label>
 
-            value={formData.image_url}
+    <input
+      type="file"
+      accept="image/*"
+      onChange={(e) => {
+        setSelectedImage(e.target.files[0]);
+      }}
+      className="border p-2 w-full rounded"
+    />
 
-            onChange={handleChange}
+    {selectedImage && (
+      <p className="text-sm text-green-600 mt-2">
+        Selected: {selectedImage.name}
+      </p>
+    )}
 
-            className="border p-2 w-full rounded"
+  </div>
 
-          />
+  <div className="flex items-center gap-3">
+
+    <hr className="flex-1" />
+
+    <span className="text-gray-500 text-sm">
+      OR
+    </span>
+
+    <hr className="flex-1" />
+
+  </div>
+
+  <div>
+
+    <label className="block font-medium mb-2">
+      Image URL
+    </label>
+
+    <input
+      type="text"
+      name="image_url"
+      placeholder="https://example.com/image.jpg"
+      value={formData.image_url}
+      onChange={handleChange}
+      className="border p-2 w-full rounded"
+    />
+
+  </div>
+
+</div>
 
 
 
