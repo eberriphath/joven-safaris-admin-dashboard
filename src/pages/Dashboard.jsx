@@ -28,92 +28,270 @@ function Dashboard() {
     );
   }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  return (
-    <div>
+return (
+  <div>
 
-      <h1 className="text-3xl font-bold mb-6">
+    {/* PAGE HEADER */}
+
+    <div className="mb-8">
+
+      <h1
+        className="
+        text-3xl
+        md:text-4xl
+        font-serif
+        font-bold
+        text-[#2C1810]
+        "
+      >
         Dashboard Overview
       </h1>
 
+      <p
+        className="
+        mt-2
+        text-[#6B5744]
+        "
+      >
+        Welcome back. Here's what's happening today.
+      </p>
 
-      {/* STAT CARDS */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+    </div>
 
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-gray-500">
-            Total Bookings
-          </h2>
+    {/* STAT CARDS */}
 
-          <p className="text-3xl font-bold mt-2">
-            {stats.total_bookings}
-          </p>
-        </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
 
+      <div
+        className="
+        bg-white
+        p-6
+        rounded-xl
+        shadow-md
+        border
+        border-[#E8DCC5]
+        "
+      >
 
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-gray-500">
-            Pending
-          </h2>
+        <h2
+          className="
+          text-[#6B5744]
+          uppercase
+          tracking-wide
+          text-sm
+          "
+        >
+          Total Bookings
+        </h2>
 
-          <p className="text-3xl font-bold mt-2 text-yellow-500">
-            {stats.pending}
-          </p>
-        </div>
-
-
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-gray-500">
-            Confirmed
-          </h2>
-
-          <p className="text-3xl font-bold mt-2 text-green-600">
-            {stats.confirmed}
-          </p>
-        </div>
-
-
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-gray-500">
-            Cancelled
-          </h2>
-
-          <p className="text-3xl font-bold mt-2 text-red-500">
-            {stats.cancelled}
-          </p>
-        </div>
+        <p
+          className="
+          text-4xl
+          font-bold
+          mt-3
+          text-[#2C1810]
+          "
+        >
+          {stats.total_bookings}
+        </p>
 
       </div>
 
+      <div
+        className="
+        bg-white
+        p-6
+        rounded-xl
+        shadow-md
+        border
+        border-[#E8DCC5]
+        "
+      >
 
-      {/* RECENT BOOKINGS */}
-      <div className="mt-8 bg-white rounded-xl shadow p-6">
-
-        <h2 className="text-xl font-bold mb-4">
-          Recent Bookings
+        <h2
+          className="
+          text-[#6B5744]
+          uppercase
+          tracking-wide
+          text-sm
+          "
+        >
+          Pending
         </h2>
 
+        <p
+          className="
+          text-4xl
+          font-bold
+          mt-3
+          text-[#C4873A]
+          "
+        >
+          {stats.pending}
+        </p>
 
-        <table className="w-full">
+      </div>
+
+      <div
+        className="
+        bg-white
+        p-6
+        rounded-xl
+        shadow-md
+        border
+        border-[#E8DCC5]
+        "
+      >
+
+        <h2
+          className="
+          text-[#6B5744]
+          uppercase
+          tracking-wide
+          text-sm
+          "
+        >
+          Confirmed
+        </h2>
+
+        <p
+          className="
+          text-4xl
+          font-bold
+          mt-3
+          text-[#2D5016]
+          "
+        >
+          {stats.confirmed}
+        </p>
+
+      </div>
+
+      <div
+        className="
+        bg-white
+        p-6
+        rounded-xl
+        shadow-md
+        border
+        border-[#E8DCC5]
+        "
+      >
+
+        <h2
+          className="
+          text-[#6B5744]
+          uppercase
+          tracking-wide
+          text-sm
+          "
+        >
+          Cancelled
+        </h2>
+
+        <p
+          className="
+          text-4xl
+          font-bold
+          mt-3
+          text-[#8B2E2E]
+          "
+        >
+          {stats.cancelled}
+        </p>
+
+      </div>
+
+    </div>
+
+    {/* RECENT BOOKINGS */}
+
+    <div
+      className="
+      mt-8
+      bg-white
+      rounded-xl
+      shadow-md
+      border
+      border-[#E8DCC5]
+      p-4
+      md:p-6
+      "
+    >
+
+      <h2
+        className="
+        text-2xl
+        font-serif
+        font-bold
+        text-[#2C1810]
+        mb-6
+        "
+      >
+        Recent Bookings
+      </h2>
+
+      <div className="overflow-x-auto">
+
+        <table className="min-w-full">
 
           <thead>
-            <tr className="border-b">
 
-              <th className="text-left p-3">
+            <tr className="border-b border-[#E8DCC5]">
+
+              <th
+                className="
+                text-left
+                px-4
+                py-3
+                whitespace-nowrap
+                text-[#6B5744]
+                uppercase
+                tracking-wide
+                text-xs
+                font-semibold
+                "
+              >
                 Name
               </th>
 
-              <th className="text-left p-3">
+              <th
+                className="
+                text-left
+                px-4
+                py-3
+                whitespace-nowrap
+                text-[#6B5744]
+                uppercase
+                tracking-wide
+                text-xs
+                font-semibold
+                "
+              >
                 Destination
               </th>
 
-              <th className="text-left p-3">
+              <th
+                className="
+                text-left
+                px-4
+                py-3
+                whitespace-nowrap
+                text-[#6B5744]
+                uppercase
+                tracking-wide
+                text-xs
+                font-semibold
+                "
+              >
                 Status
               </th>
 
             </tr>
-          </thead>
 
+          </thead>
 
           <tbody>
 
@@ -121,32 +299,54 @@ function Dashboard() {
 
               <tr
                 key={booking.id}
-                className="border-b"
+                className="
+                border-b
+                border-[#F5ECD7]
+                hover:bg-[#FAF6EE]
+                transition
+                "
               >
 
-                <td className="p-3">
+                <td
+                  className="
+                  px-4
+                  py-4
+                  whitespace-nowrap
+                  text-[#2C1810]
+                  "
+                >
                   {booking.full_name}
                 </td>
 
-
-                <td className="p-3">
+                <td
+                  className="
+                  px-4
+                  py-4
+                  whitespace-nowrap
+                  text-[#6B5744]
+                  "
+                >
                   {booking.destination}
                 </td>
 
-
-                <td className="p-3">
+                <td className="px-4 py-4 whitespace-nowrap">
 
                   <span
                     className={`
-                      px-3 py-1 rounded-full text-sm
+                      inline-block
+                      px-3
+                      py-1
+                      rounded-full
+                      text-xs
+                      md:text-sm
+                      font-medium
+
                       ${
                         booking.status === "confirmed"
-                        ? "bg-green-100 text-green-700"
-                        :
-                        booking.status === "cancelled"
-                        ? "bg-red-100 text-red-700"
-                        :
-                        "bg-yellow-100 text-yellow-700"
+                          ? "bg-[#2D5016] text-white"
+                          : booking.status === "cancelled"
+                          ? "bg-[#FDECEC] text-[#8B2E2E]"
+                          : "bg-[#F5ECD7] text-[#8B4513]"
                       }
                     `}
                   >
@@ -165,9 +365,10 @@ function Dashboard() {
 
       </div>
 
-
     </div>
-  );
+
+  </div>
+);
 }
 
 export default Dashboard;

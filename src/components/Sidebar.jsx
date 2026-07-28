@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { logout } from "../services/auth";
 
-function Sidebar() {
+function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   function handleLogout() {
     logout();
@@ -9,17 +9,67 @@ function Sidebar() {
   }
 
   return (
-    <aside className="w-64 bg-slate-900 text-white flex flex-col">
+    <aside
+  className={`
+    fixed
+    inset-y-0
+    left-0
+    z-50
+    w-64
+   bg-[#2C1810]
+    text-[#F5ECD7]
+    flex
+    flex-col
+    transform
+    transition-transform
+    duration-300
+
+    md:static
+    md:translate-x-0
+
+    ${
+      sidebarOpen
+      ? "translate-x-0"
+      : "-translate-x-full"
+    }
+  `}
+
+  
+
+>
+
+  <button
+  onClick={() => setSidebarOpen(false)}
+  className="
+    md:hidden
+    absolute
+    top-4
+    right-4
+    text-[#F5ECD7]
+    text-2xl
+  "
+>
+  ✕
+</button>
 
       {/* Logo */}
-      <div className="p-6 border-b border-slate-700">
-        <h1 className="text-xl font-bold">
-          Joven Safaris
-        </h1>
+      <div className="p-6 border-b border-[#4A3427]">
+<h1 className="
+text-2xl
+font-serif
+font-bold
+text-[#D4A940]
+">
+  Joven Safaris
+</h1>
 
-        <p className="text-sm text-slate-400">
-          Admin Panel
-        </p>
+<p className="
+text-sm
+text-[#D8C8B4]
+tracking-wide
+">
+  Administration
+</p>
       </div>
 
       {/* Navigation */}
@@ -30,8 +80,8 @@ function Sidebar() {
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 mb-2 ${
               isActive
-                ? "bg-blue-600"
-                : "hover:bg-slate-800"
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
             }`
           }
         >
@@ -43,8 +93,8 @@ function Sidebar() {
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 mb-2 ${
               isActive
-                ? "bg-blue-600"
-                : "hover:bg-slate-800"
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
             }`
           }
         >
@@ -56,8 +106,8 @@ function Sidebar() {
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 mb-2 ${
               isActive
-                ? "bg-blue-600"
-                : "hover:bg-slate-800"
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
             }`
           }
         >
@@ -69,8 +119,8 @@ function Sidebar() {
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 ${
               isActive
-                ? "bg-blue-600"
-                : "hover:bg-slate-800"
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
             }`
           }
         >
@@ -82,8 +132,8 @@ function Sidebar() {
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 ${
               isActive
-                ? "bg-blue-600"
-                : "hover:bg-slate-800"
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
             }`
           }
         >
@@ -96,7 +146,7 @@ function Sidebar() {
       <div className="p-4 border-t border-slate-700">
         <button
           onClick={handleLogout}
-          className="w-full rounded-lg bg-red-500 py-2 hover:bg-red-600"
+          className="w-full rounded-lg bg-[#8B2E2E] hover:bg-[#6F2323]"
         >
           Logout
         </button>

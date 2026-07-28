@@ -68,34 +68,88 @@ function Settings() {
 
     }
 
-    return (
 
-        <div className="max-w-xl mx-auto bg-white rounded-xl shadow-lg p-8">
+////////////////////////////////////////////////////////////////
 
-            <h1 className="text-3xl font-bold mb-6">
+return (
+
+    <div
+        className="
+        min-h-screen
+        bg-[#FAF6EE]
+        p-6
+        "
+    >
+
+        <div
+            className="
+            w-full
+            max-w-xl
+            mx-auto
+            bg-white
+            rounded-xl
+            shadow-md
+            border
+            border-[#E8DCC5]
+            p-5
+            md:p-8
+            "
+        >
+
+            <h1
+                className="
+                text-2xl
+                md:text-3xl
+                font-serif
+                font-bold
+                mb-6
+                text-[#2C1810]
+                "
+            >
                 Change Password
             </h1>
 
+
             {message && (
 
-                <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+                <div
+                    className="
+                    bg-[#EAF3E5]
+                    text-[#2D5016]
+                    p-3
+                    rounded-lg
+                    mb-4
+                    "
+                >
                     {message}
                 </div>
 
             )}
 
+
             {error && (
 
-                <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+                <div
+                    className="
+                    bg-[#FDECEC]
+                    text-[#8B2E2E]
+                    p-3
+                    rounded-lg
+                    mb-4
+                    "
+                >
                     {error}
                 </div>
 
             )}
 
+
+
             <form
                 onSubmit={handleSubmit}
                 className="space-y-5"
             >
+
 
                 {/* Current Password */}
 
@@ -107,24 +161,50 @@ function Settings() {
                         placeholder="Current Password"
                         value={formData.current_password}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-4 py-3 pr-12"
+                        className="
+                        w-full
+                        border
+                        border-[#E8DCC5]
+                        rounded-lg
+                        px-4
+                        py-3
+                        pr-12
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[#C4873A]
+                        "
                     />
+
 
                     <button
                         type="button"
                         onClick={() =>
                             setShowCurrentPassword(!showCurrentPassword)
                         }
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        className="
+                        absolute
+                        right-4
+                        top-1/2
+                        -translate-y-1/2
+                        text-[#6B5744]
+                        hover:text-[#2C1810]
+                        "
                     >
+
                         {showCurrentPassword ? (
-                            <EyeOff size={20} />
+                            <EyeOff size={20}/>
                         ) : (
-                            <Eye size={20} />
+                            <Eye size={20}/>
                         )}
+
                     </button>
 
+
                 </div>
+
+
+
+
 
                 {/* New Password */}
 
@@ -136,28 +216,55 @@ function Settings() {
                         placeholder="New Password"
                         value={formData.new_password}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-4 py-3 pr-12"
+                        className="
+                        w-full
+                        border
+                        border-[#E8DCC5]
+                        rounded-lg
+                        px-4
+                        py-3
+                        pr-12
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[#C4873A]
+                        "
                     />
+
 
                     <button
                         type="button"
                         onClick={() =>
                             setShowNewPassword(!showNewPassword)
                         }
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        className="
+                        absolute
+                        right-4
+                        top-1/2
+                        -translate-y-1/2
+                        text-[#6B5744]
+                        hover:text-[#2C1810]
+                        "
                     >
+
                         {showNewPassword ? (
-                            <EyeOff size={20} />
+                            <EyeOff size={20}/>
                         ) : (
-                            <Eye size={20} />
+                            <Eye size={20}/>
                         )}
+
                     </button>
 
+
                 </div>
+
+
+
+
 
                 {/* Confirm Password */}
 
                 <div className="relative">
+
 
                     <input
                         type={showConfirmPassword ? "text" : "password"}
@@ -165,36 +272,79 @@ function Settings() {
                         placeholder="Confirm Password"
                         value={formData.confirm_password}
                         onChange={handleChange}
-                        className="w-full border rounded-lg px-4 py-3 pr-12"
+                        className="
+                        w-full
+                        border
+                        border-[#E8DCC5]
+                        rounded-lg
+                        px-4
+                        py-3
+                        pr-12
+                        focus:outline-none
+                        focus:ring-2
+                        focus:ring-[#C4873A]
+                        "
                     />
+
 
                     <button
                         type="button"
                         onClick={() =>
                             setShowConfirmPassword(!showConfirmPassword)
                         }
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        className="
+                        absolute
+                        right-4
+                        top-1/2
+                        -translate-y-1/2
+                        text-[#6B5744]
+                        hover:text-[#2C1810]
+                        "
                     >
+
                         {showConfirmPassword ? (
-                            <EyeOff size={20} />
+                            <EyeOff size={20}/>
                         ) : (
-                            <Eye size={20} />
+                            <Eye size={20}/>
                         )}
+
                     </button>
+
 
                 </div>
 
+
+
+
+
                 <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg w-full transition"
+                    className="
+                    bg-[#C4873A]
+                    hover:bg-[#A86F2F]
+                    text-white
+                    px-6
+                    py-3
+                    rounded-lg
+                    w-full
+                    transition
+                    font-semibold
+                    "
                 >
+
                     Update Password
+
                 </button>
+
 
             </form>
 
+
         </div>
 
-    );
+
+    </div>
+
+);
 
 }
 

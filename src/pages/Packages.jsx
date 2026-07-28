@@ -253,270 +253,238 @@ const data = {
   }
 
 
+///////////////////////////////////////////////////////////////
 
 
+return (
 
-  return (
-
-    <div className="min-h-screen bg-gray-100 p-6">
-
-
-      <div className="flex justify-between items-center mb-6">
+  <div className="min-h-screen bg-[#FAF6EE] p-6">
 
 
-        <h1 className="text-3xl font-bold">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+
+
+      <div>
+
+        <h1
+          className="
+          text-3xl
+          md:text-4xl
+          font-serif
+          font-bold
+          text-[#2C1810]
+          "
+        >
           Safari Packages
         </h1>
 
-
-
-        <button
-
-          onClick={()=>{
-
-            resetForm();
-            setShowForm(!showForm);
-
-          }}
-
-          className="
-          bg-blue-600
-          text-white
-          px-4
-          py-2
-          rounded-lg
-          hover:bg-blue-700
-          "
-
-        >
-
-          Add Package
-
-        </button>
-
+        <p className="text-[#6B5744] mt-2">
+          Manage your safari experiences and packages.
+        </p>
 
       </div>
 
 
 
+      <button
+
+        onClick={()=>{
+
+          resetForm();
+          setShowForm(!showForm);
+
+        }}
+
+        className="
+        bg-[#2C1810]
+        text-white
+        px-5
+        py-3
+        rounded-lg
+        hover:bg-[#4A2C20]
+        transition
+        w-full
+        md:w-auto
+        "
+
+      >
+
+        Add Package
+
+      </button>
+
+
+    </div>
 
 
 
 
-      {showForm && (
+
+    {showForm && (
+
+      <form
+
+        onSubmit={savePackage}
+
+        className="
+        bg-white
+        shadow-md
+        rounded-xl
+        border
+        border-[#E8DCC5]
+        p-6
+        mb-8
+        space-y-5
+        "
+
+      >
 
 
-        <form
-
-          onSubmit={savePackage}
-
+        <h2
           className="
-          bg-white
-          shadow-md
-          rounded-xl
-          p-6
-          mb-8
-          space-y-4
+          text-2xl
+          font-serif
+          font-bold
+          text-[#2C1810]
           "
-
         >
 
+          {editingId ? "Edit Package" : "Create Package"}
 
-          <h2 className="text-xl font-bold">
-
-            {editingId ? "Edit Package" : "Create Package"}
-
-          </h2>
+        </h2>
 
 
 
-          <input
-            name="title"
-            placeholder="Package title"
-            value={formData.title}
-            onChange={handleChange}
-            className="border p-2 w-full rounded"
-          />
+
+        <input
+          name="title"
+          placeholder="Package title"
+          value={formData.title}
+          onChange={handleChange}
+          className="
+          border
+          border-[#E8DCC5]
+          p-3
+          w-full
+          rounded-lg
+          focus:outline-none
+          focus:ring-2
+          focus:ring-[#C4873A]
+          "
+        />
 
 
 
-          <input
-            name="destination"
-            placeholder="Destination"
-            value={formData.destination}
-            onChange={handleChange}
-            className="border p-2 w-full rounded"
-          />
+        <input
+          name="destination"
+          placeholder="Destination"
+          value={formData.destination}
+          onChange={handleChange}
+          className="
+          border
+          border-[#E8DCC5]
+          p-3
+          w-full
+          rounded-lg
+          "
+        />
 
 
 
-          <input
-            name="duration"
-            placeholder="Duration"
-            value={formData.duration}
-            onChange={handleChange}
-            className="border p-2 w-full rounded"
-          />
+        <input
+          name="duration"
+          placeholder="Duration"
+          value={formData.duration}
+          onChange={handleChange}
+          className="
+          border
+          border-[#E8DCC5]
+          p-3
+          w-full
+          rounded-lg
+          "
+        />
 
 
 
-          <input
-            name="price"
-            type="number"
-            placeholder="Price"
-            value={formData.price}
-            onChange={handleChange}
-            className="border p-2 w-full rounded"
-          />
+        <input
+          name="price"
+          type="number"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          className="
+          border
+          border-[#E8DCC5]
+          p-3
+          w-full
+          rounded-lg
+          "
+        />
 
 
 
-          <textarea
+        <textarea
 
-            name="description"
+          name="description"
 
-            placeholder="Description"
+          placeholder="Description"
 
-            value={formData.description}
+          value={formData.description}
 
-            onChange={handleChange}
+          onChange={handleChange}
 
-            className="border p-2 w-full rounded"
+          className="
+          border
+          border-[#E8DCC5]
+          p-3
+          w-full
+          rounded-lg
+          "
 
-          />
-
-
-
-<div className="space-y-4">
-
-  <div>
-
-    <label className="block font-medium mb-2">
-      Upload Image
-    </label>
-
-    <input
-      type="file"
-      accept="image/*"
-      onChange={(e) => {
-        setSelectedImage(e.target.files[0]);
-      }}
-      className="border p-2 w-full rounded"
-    />
-
-    {selectedImage && (
-      <p className="text-sm text-green-600 mt-2">
-        Selected: {selectedImage.name}
-      </p>
-    )}
-
-  </div>
-
-  <div className="flex items-center gap-3">
-
-    <hr className="flex-1" />
-
-    <span className="text-gray-500 text-sm">
-      OR
-    </span>
-
-    <hr className="flex-1" />
-
-  </div>
-
-  <div>
-
-    <label className="block font-medium mb-2">
-      Image URL
-    </label>
-
-    <input
-      type="text"
-      name="image_url"
-      placeholder="https://example.com/image.jpg"
-      value={formData.image_url}
-      onChange={handleChange}
-      className="border p-2 w-full rounded"
-    />
-
-  </div>
-
-</div>
+        />
 
 
 
-          <label className="flex gap-2">
+
+        <div className="space-y-4">
+
+
+          <div>
+
+            <label className="block font-medium text-[#2C1810] mb-2">
+              Upload Image
+            </label>
 
 
             <input
 
-              type="checkbox"
+              type="file"
 
-              name="active"
+              accept="image/*"
 
-              checked={formData.active}
+              onChange={(e)=>{
+                setSelectedImage(e.target.files[0]);
+              }}
 
-              onChange={handleChange}
+              className="
+              border
+              border-[#E8DCC5]
+              p-3
+              w-full
+              rounded-lg
+              "
 
             />
 
 
-            Publish package
+            {selectedImage && (
 
+              <p className="text-sm text-[#2D5016] mt-2">
 
-          </label>
+                Selected: {selectedImage.name}
 
-
-
-
-
-          <div className="flex gap-3">
-
-
-            <button
-
-              className="
-              bg-green-600
-              text-white
-              px-5
-              py-2
-              rounded
-              "
-
-            >
-
-              {editingId ? "Update Package" : "Save Package"}
-
-            </button>
-
-
-
-            {editingId && (
-
-              <button
-
-                type="button"
-
-                onClick={()=>{
-
-                  resetForm();
-                  setShowForm(false);
-
-                }}
-
-                className="
-                bg-gray-500
-                text-white
-                px-5
-                py-2
-                rounded
-                "
-
-              >
-
-                Cancel
-
-              </button>
+              </p>
 
             )}
 
@@ -524,174 +492,362 @@ const data = {
           </div>
 
 
-        </form>
 
-      )}
+          <div className="flex items-center gap-3">
 
+            <hr className="flex-1 border-[#E8DCC5]" />
 
+            <span className="text-[#6B5744] text-sm">
+              OR
+            </span>
 
+            <hr className="flex-1 border-[#E8DCC5]" />
 
-
-
-
-
-      {loading ? (
-
-        <p>Loading packages...</p>
-
-
-      ) : (
+          </div>
 
 
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div>
 
 
-          {packages.map((pkg)=>(
+            <label className="block font-medium text-[#2C1810] mb-2">
+
+              Image URL
+
+            </label>
 
 
-            <div
+            <input
 
-              key={pkg.id}
+              type="text"
+
+              name="image_url"
+
+              placeholder="https://example.com/image.jpg"
+
+              value={formData.image_url}
+
+              onChange={handleChange}
 
               className="
-              bg-white
-              rounded-xl
-              shadow-md
-              p-5
+              border
+              border-[#E8DCC5]
+              p-3
+              w-full
+              rounded-lg
+              "
+
+            />
+
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+        <label className="flex gap-3 items-center text-[#2C1810]">
+
+
+          <input
+
+            type="checkbox"
+
+            name="active"
+
+            checked={formData.active}
+
+            onChange={handleChange}
+
+          />
+
+
+          Publish package
+
+
+        </label>
+
+
+
+
+
+
+        <div className="flex gap-3">
+
+
+          <button
+
+            className="
+            bg-[#2D5016]
+            text-white
+            px-6
+            py-2
+            rounded-lg
+            hover:bg-[#3E6B20]
+            "
+
+          >
+
+            {editingId ? "Update Package" : "Save Package"}
+
+          </button>
+
+
+
+          {editingId && (
+
+            <button
+
+              type="button"
+
+              onClick={()=>{
+
+                resetForm();
+                setShowForm(false);
+
+              }}
+
+              className="
+              bg-[#6B5744]
+              text-white
+              px-6
+              py-2
+              rounded-lg
               "
 
             >
 
+              Cancel
 
-              <h2 className="font-bold text-xl">
+            </button>
 
-                {pkg.title}
-
-              </h2>
-
+          )}
 
 
-              <p>
-                📍 {pkg.destination}
-              </p>
+        </div>
 
 
+      </form>
 
-              <p>
-                🕒 {pkg.duration}
-              </p>
+    )}
 
 
 
-              <p className="font-semibold mt-2">
-
-                KSh {pkg.price.toLocaleString()}
-
-              </p>
 
 
 
-              <p className="text-gray-600 mt-3">
 
-                {pkg.description}
+    {loading ? (
 
-              </p>
+      <p className="text-[#6B5744]">
+        Loading packages...
+      </p>
+
+
+    ) : (
+
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+        {packages.map((pkg)=>(
+
+
+          <div
+
+            key={pkg.id}
+
+            className="
+            bg-white
+            rounded-xl
+            shadow-md
+            border
+            border-[#E8DCC5]
+            p-5
+            "
+
+          >
 
 
 
-              <span
+            {pkg.image_url && (
 
-                className={`
-                inline-block
-                mt-3
-                px-3
-                py-1
-                rounded-full
-                text-sm
-                ${
-                  pkg.active
-                  ? "bg-green-100 text-green-700"
-                  : "bg-gray-200 text-gray-700"
-                }
-                `}
+              <img
+
+                src={pkg.image_url}
+
+                alt={pkg.title}
+
+                className="
+                w-full
+                h-48
+                object-cover
+                rounded-lg
+                mb-4
+                "
+
+              />
+
+            )}
+
+
+
+
+            <h2
+              className="
+              font-serif
+              font-bold
+              text-xl
+              text-[#2C1810]
+              "
+            >
+
+              {pkg.title}
+
+            </h2>
+
+
+
+
+            <p className="text-[#6B5744] mt-2">
+              📍 {pkg.destination}
+            </p>
+
+
+
+            <p className="text-[#6B5744]">
+              🕒 {pkg.duration}
+            </p>
+
+
+
+
+            <p className="
+            font-bold
+            text-[#C4873A]
+            mt-3
+            ">
+
+              KSh {pkg.price.toLocaleString()}
+
+            </p>
+
+
+
+
+
+            <p className="text-[#6B5744] mt-3">
+
+              {pkg.description}
+
+            </p>
+
+
+
+
+
+            <span
+
+              className={`
+
+              inline-block
+              mt-4
+              px-3
+              py-1
+              rounded-full
+              text-sm
+              font-medium
+
+              ${
+                pkg.active
+                ? "bg-[#E7F0DD] text-[#2D5016]"
+                : "bg-[#F5ECD7] text-[#6B5744]"
+              }
+
+              `}
+
+            >
+
+              {pkg.active ? "Published" : "Draft"}
+
+            </span>
+
+
+
+
+
+
+            <div className="flex gap-3 mt-5">
+
+
+              <button
+
+                onClick={()=>editPackage(pkg)}
+
+                className="
+                bg-[#C4873A]
+                text-white
+                px-4
+                py-2
+                rounded-lg
+                w-full
+                "
 
               >
 
-                {pkg.active ? "Published" : "Draft"}
+                Edit
 
-              </span>
-
-
-
-
-              <div className="flex gap-3 mt-5">
-
-
-                <button
-
-                  onClick={()=>editPackage(pkg)}
-
-                  className="
-                  bg-yellow-500
-                  text-white
-                  px-4
-                  py-2
-                  rounded
-                  "
-
-                >
-
-                  Edit
-
-                </button>
+              </button>
 
 
 
 
-                <button
 
-                  onClick={()=>deletePackage(pkg.id)}
+              <button
 
-                  className="
-                  bg-red-600
-                  text-white
-                  px-4
-                  py-2
-                  rounded
-                  "
+                onClick={()=>deletePackage(pkg.id)}
 
-                >
+                className="
+                bg-[#8B2E2E]
+                text-white
+                px-4
+                py-2
+                rounded-lg
+                w-full
+                "
 
-                  Delete
+              >
 
-                </button>
+                Delete
 
-
-
-              </div>
+              </button>
 
 
 
             </div>
 
 
-          ))}
+
+          </div>
+
+
+        ))}
 
 
 
-        </div>
+      </div>
 
 
-      )}
+    )}
 
 
 
-    </div>
+  </div>
 
-  );
-
+);
 }
-
 
 export default Packages;

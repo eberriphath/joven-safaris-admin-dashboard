@@ -1,23 +1,62 @@
-function Navbar() {
+import { Menu } from "lucide-react";
+
+function Navbar({ setSidebarOpen }) {
+
   return (
-    <header className="h-16 bg-white shadow flex items-center justify-between px-6">
+    <header className="
+      h-16
+      bg-white
+      shadow
+      flex
+      items-center
+      justify-between
+      px-4
+      md:px-6
+    ">
+
+      {/* Mobile menu button */}
+      <button
+        onClick={() => setSidebarOpen(true)}
+        className="
+          md:hidden
+          text-gray-700
+          text-2xl
+        "
+      >
+        <Menu />
+      </button>
+
 
       <div>
-        <h2 className="text-xl font-semibold text-gray-800">
+        <h2 className="text-lg md:text-xl font-semibold text-gray-800">
           Admin Dashboard
         </h2>
       </div>
 
+
       <div className="flex items-center space-x-3">
-        <div className="text-right">
+
+        <div className="hidden sm:block text-right">
           <p className="font-medium text-gray-700">
             Administrator
           </p>
         </div>
 
-        <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+
+        <div className="
+          w-10
+          h-10
+          rounded-full
+          bg-blue-600
+          flex
+          items-center
+          justify-center
+          text-white
+          font-bold
+        ">
           A
         </div>
+
       </div>
 
     </header>
