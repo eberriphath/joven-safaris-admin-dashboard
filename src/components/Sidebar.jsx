@@ -102,6 +102,19 @@ tracking-wide
         </NavLink>
 
         <NavLink
+          to="/car-rentals"
+          className={({ isActive }) =>
+            `block rounded-lg px-4 py-3 mb-2 ${
+              isActive
+                ? "bg-[#D4A940] text-[#2C1810]"
+                : "hover:bg-[#3A2417]"
+            }`
+          }
+        >
+          Car Rentals
+        </NavLink>
+
+        <NavLink
           to="/reviews"
           className={({ isActive }) =>
             `block rounded-lg px-4 py-3 mb-2 ${
