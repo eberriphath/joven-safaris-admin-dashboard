@@ -10,7 +10,7 @@ import Settings from "../pages/Settings";
 import Packages from "../pages/Packages";
 import ProtectedRoute from "./ProtectedRoute";
 import ForgotPassword from "../pages/ForgotPassword";
-
+import ResetPassword from "../pages/ResetPassword";
 
 function AppRoutes() {
   return (
@@ -40,6 +40,8 @@ function AppRoutes() {
           <Route path="/packages" element={<Packages />} />
 
           <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         </Route>
 
