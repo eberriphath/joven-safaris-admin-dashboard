@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../services/auth";
 
 const api = axios.create({
-  baseURL: "https://joven-safaris-backend.onrender.com/api",
+  baseURL: "https://joven-safaris-backend-92tp.onrender.com/api",
 });
 
 api.interceptors.request.use((config) => {
